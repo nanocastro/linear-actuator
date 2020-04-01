@@ -12,7 +12,7 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(2);
+render_part(4);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
@@ -159,6 +159,7 @@ module carriage_body() {
 		cylinder(r = od_antibacklash_spring / 2 + pad_guide_radius, h = t_carriage, center = true);
 	}
 }
+//carriage_relief();
 
 module carriage_relief() {
 	for (i = [-1, 1])
@@ -171,7 +172,11 @@ module carriage_relief() {
 
 			translate([i * (guide_bearing[0] / 2 - 2), -(guide_bearing[0] / 2 - 2), , 0])
 				cylinder(r = guide_bearing[0] / 2, h = guide_bearing[2], center = true);
-	}
+	
+            translate([i * (guide_bearing[0] / 2 - 2-2), -(guide_bearing[0] / 2 - 2-2), , 0])
+cylinder(r = guide_bearing[0] / 2, h = guide_bearing[2], center = true);
+            
+            }
 
 	// nut trap for fixed nut
 	hull()
@@ -194,6 +199,7 @@ module carriage_relief() {
 	// lead screw
 	cylinder(r = d_lead_screw /2 + 0.5, h = t_carriage + 2, center = true);
 }
+//carriage_support();
 
 module carriage_support() {
 	// floors for holes
@@ -229,7 +235,7 @@ module carriage() {
 			carriage_relief();
 		}
 
-		carriage_support();
+//		carriage_support();
 	}
 }
 
@@ -359,7 +365,7 @@ module carriage_syringe_pump() {
 		}
 
 		// support structure to facilitate printing
-		carriage_support();
+//		carriage_support();
 	}
 }
 
